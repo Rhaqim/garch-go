@@ -1,4 +1,4 @@
-package app
+package domain
 
 // ProjectConfig represents the configuration for a project
 type ProjectConfig struct {

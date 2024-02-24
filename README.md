@@ -3,7 +3,7 @@
 ## Project Structure
 
 ```bash
-GarchGo/
+GaarchGo/
 │
 ├── cmd/
 │   └── gen/
@@ -11,20 +11,26 @@ GarchGo/
 │
 ├── internal/
 │   ├── app/                   # Application core
-│   │   ├── project.go         # Project domain model and use case
-│   │   └── service.go         # Project service implementation
+│   │   ├── domain/            # Domain layer
+│   │   │   └── model.go       # Define domain models/interfaces
+│   │   ├── service/           # Business logic layer
+│   │   │   └── service.go     # Define application services
+│   │   └── usecase/           # Application use cases
+│   │       └── usecase.go     # Define use case interfaces
 │   │
 │   ├── adapter/               # Adapters for CLI interaction
 │   │   └── cli/               # CLI adapter
 │   │       └── cli.go         # Implementation for CLI interaction
 │   │
-│   └── infrastructure/        # Infrastructure layer
-│       └── repository/        # Stub repository for future use
-│           └── repository.go  # Interface for project repository
+│   ├── infrastructure/        # Infrastructure layer
+│   │   └── repository/        # Stub repository for future use
+│   │       └── repository.go  # Interface for project repository
+│   │
+│   └── utils/                 # Utilities package
+│       └── utils.go           # Utility functions/helpers
 │
 └── config/                    # Configuration files
     └── config.go              # Configuration loading logic
-
 ```
 
 ### Explanation
@@ -35,11 +41,17 @@ GarchGo/
 
   - **`app/`**: This directory contains the core logic of the application, including the domain, business logic, and use cases.
 
-    - **`model.go`**: Contains the domain model for the application, such as structs and interfaces that represent the core concepts of the application.
+    - **`domain/`**: Contains the domain models and interfaces that define the core concepts of the application.
 
-    - **`service.go`**: Contains the application service, which provides the main functionality of the application.
+      - **`model.go`**: Contains the domain models and interfaces that define the core concepts of the application.
 
-    - **`usecase.go`**: Contains the use case interface, which defines the application's use cases. This interface is implemented by the application service.
+    - **`service/`**: Contains the application service, which encapsulates the business logic of the application.
+
+      - **`service.go`**: Contains the application service, which encapsulates the business logic of the application.
+
+    - **`usecase/`**: Contains the application use cases, which define the high-level interactions with the application.
+
+      - **`usecase.go`**: Contains the application use cases, which define the high-level interactions with the application.
   
   - **`adapter/`**: This directory contains implementations of interfaces defined in the `app` package, such as CLI adapters or web API handlers.
 
@@ -52,6 +64,10 @@ GarchGo/
     - **`repository/`**: Contains the repository interface and its implementations. In this example, there is a stub repository that doesn't interact with a real database or external service.
   
       - **`repository.go`**: Contains the repository interface, which defines the methods for interacting with the project repository.
+  
+  - **`utils/`**: Contains utility functions or helpers that are used throughout the application.
+
+    - **`utils.go`**: Contains utility functions or helpers that are used throughout the application.
 
 - **`config/`**: Contains configuration files and logic for loading configuration settings into the application.
 
