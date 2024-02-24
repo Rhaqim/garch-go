@@ -13,13 +13,13 @@ func NewCLI() CLIInterface {
 	return &CLI{}
 }
 
-func (c *CLI) InvalidArgs() {
+func (c *CLI) InvalidArgs(message ...interface{}) {
 	if len(os.Args) < 2 {
-		c.Display("Usage: garch-go [command] [arguments]")
+		c.Display(message...)
 		return
 	}
 
-	c.Display("Unknown command:", os.Args[1])
+	c.Display("Unknown command:", os.Args[1], message)
 }
 
 func (c *CLI) Prompt(prompt string) string {

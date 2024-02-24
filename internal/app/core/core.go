@@ -28,7 +28,7 @@ func (c *Core) Run() {
 	cli.Display("Welcome to Garch! \n")
 
 	if len(os.Args) < 2 {
-		cli.InvalidArgs()
+		project.Usage()
 		return
 	}
 
@@ -38,7 +38,7 @@ func (c *Core) Run() {
 	case "--help":
 		project.Help()
 	default:
-		cli.InvalidArgs()
+		project.Usage()
 	}
 
 }
