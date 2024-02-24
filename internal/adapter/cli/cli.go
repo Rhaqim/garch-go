@@ -5,26 +5,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Rhaqim/garch-go/config"
 	"github.com/Rhaqim/garch-go/internal/app/domain"
+	"github.com/Rhaqim/garch-go/internal/utils"
 )
-
-// CLIInterface provides methods for interacting with the command-line
-type CLIInterface interface {
-	// Start starts the CLI
-	Start(config *domain.ProjectConfig)
-	//Usage prints the usage message
-	Usage()
-	// InvalidArgs prints the invalid arguments message
-	InvalidArgs()
-	// Prompt asks the user for input
-	Prompt(prompt string) string
-	// PromptOptions asks the user to choose from a list of options
-	PromptOptions(prompt string, options []string) string
-	// Bool asks the user for a boolean input, Yes or No
-	Bool(prompt string) bool
-	// Println prints a line to the console
-	Display(a ...interface{})
-}
 
 // CLI represents the CLI adapter
 type CLI struct{}
@@ -47,21 +31,7 @@ func (c *CLI) Start(config *domain.ProjectConfig) {
 
 	genCMD.Parse(os.Args[2:])
 
-	if config.Arch == "" {
-		config.Arch = c.PromptOptions("Architecture", []string{"clean", "onion"})
-	}
-
-	if config.Title == "" {
-		config.Title = c.Prompt("Title")
-	}
-
-	if config.Author == "" {
-		config.Author = c.Prompt("Author")
-	}
-
-	if config.DbType == "" {
-		config.DbType = c.PromptOptions("Database type", []string{"sqlite", "mysql", "postgres"})
-	}
+	c.HandleArgs(config)
 
 }
 
@@ -76,6 +46,32 @@ func (c *CLI) InvalidArgs() {
 	}
 
 	c.Display("Unknown command:", os.Args[1])
+}
+
+func (c *CLI) HandleArgs(projectConfig *domain.ProjectConfig) {
+	// Select the type of the project
+	projectTypes := utils.GetFields(domain.Deps)
+
+	if projectConfig.Type == "" {
+		projectConfig.Type = c.PromptOptions("Type of the project", projectTypes)
+	}
+
+	// Select the architecture type
+	if projectConfig.Arch == "" {
+		projectConfig.Arch = c.PromptOptions("Architecture", config.ArchTypes)
+	}
+
+	if projectConfig.Title == "" {
+		projectConfig.Title = c.Prompt("Title")
+	}
+
+	if projectConfig.Author == "" {
+		projectConfig.Author = c.Prompt("Author")
+	}
+
+	if projectConfig.DbType == "" {
+		projectConfig.DbType = c.PromptOptions("Database type", []string{"sqlite", "mysql", "postgres"})
+	}
 }
 
 func (c *CLI) Prompt(prompt string) string {

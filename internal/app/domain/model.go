@@ -1,11 +1,8 @@
 package domain
 
-import (
-	"reflect"
-)
-
 // ProjectConfig represents the configuration for a project
 type ProjectConfig struct {
+	Type   string `short:"t" long:"type" description:"Type of the project"`
 	Arch   string `short:"a" long:"arch" description:"Architecture type"`
 	Title  string `short:"t" long:"title" description:"Title of the project"`
 	Author string `short:"u" long:"author" description:"Author of the project"`
@@ -13,45 +10,18 @@ type ProjectConfig struct {
 	// Add more fields for other configurations
 }
 
-func (p *ProjectConfig) ParseTags() (short, long, desc []string) {
-
-	short = make([]string, 0)
-	long = make([]string, 0)
-	desc = make([]string, 0)
-
-	// Parse the tags of the struct
-	t := reflect.TypeOf(*p)
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
-		tag := field.Tag
-		shorts := tag.Get("short")
-		longs := tag.Get("long")
-		descs := tag.Get("description")
-		// Do something with the tags
-
-		short = append(short, shorts)
-		long = append(long, longs)
-		desc = append(desc, descs)
-
-	}
-
-	return short, long, desc
-
+type ProjectDependencies struct {
+	API     []string
+	CLI     []string
+	Lib     []string
+	Service []string
+	Other   []string
 }
 
-func (p *ProjectConfig) GetFields() (fields []string) {
-
-	fields = make([]string, 0)
-
-	// Parse the tags of the struct
-	t := reflect.TypeOf(*p)
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
-		// Do something with the tags
-		fields = append(fields, field.Name)
-
-	}
-
-	return fields
-
+var Deps = ProjectDependencies{
+	API:     []string{"echo", "gin", "fiber", "chi"},
+	CLI:     []string{"cobra", "cli"},
+	Lib:     []string{"ginkgo", "gomega", "testify"},
+	Service: []string{"grpc", "nats", "rabbitmq"},
+	Other:   []string{},
 }
