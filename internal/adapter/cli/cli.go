@@ -1,13 +1,8 @@
 package cli
 
 import (
-	"flag"
 	"fmt"
 	"os"
-
-	"github.com/Rhaqim/garch-go/config"
-	"github.com/Rhaqim/garch-go/internal/app/domain"
-	"github.com/Rhaqim/garch-go/internal/utils"
 )
 
 // CLI represents the CLI adapter
@@ -18,27 +13,6 @@ func NewCLI() CLIInterface {
 	return &CLI{}
 }
 
-func (c *CLI) Start(config *domain.ProjectConfig) {
-
-	genCMD := flag.NewFlagSet("gen", flag.ExitOnError)
-
-	genCMD.StringVar(&config.Title, "title", "", "Title of the project")
-	genCMD.StringVar(&config.Author, "author", "", "Author of the project")
-	genCMD.StringVar(&config.DbType, "db", "", "Database type")
-	genCMD.StringVar(&config.Arch, "arch", "", "Architecture type")
-
-	flag.Parse()
-
-	genCMD.Parse(os.Args[2:])
-
-	c.HandleArgs(config)
-
-}
-
-func (c *CLI) Usage() {
-	c.Display("Usage: garch-go [command] [arguments]")
-}
-
 func (c *CLI) InvalidArgs() {
 	if len(os.Args) < 2 {
 		c.Display("Usage: garch-go [command] [arguments]")
@@ -46,32 +20,6 @@ func (c *CLI) InvalidArgs() {
 	}
 
 	c.Display("Unknown command:", os.Args[1])
-}
-
-func (c *CLI) HandleArgs(projectConfig *domain.ProjectConfig) {
-	// Select the type of the project
-	projectTypes := utils.GetFields(domain.Deps)
-
-	if projectConfig.Type == "" {
-		projectConfig.Type = c.PromptOptions("Type of the project", projectTypes)
-	}
-
-	// Select the architecture type
-	if projectConfig.Arch == "" {
-		projectConfig.Arch = c.PromptOptions("Architecture", config.ArchTypes)
-	}
-
-	if projectConfig.Title == "" {
-		projectConfig.Title = c.Prompt("Title")
-	}
-
-	if projectConfig.Author == "" {
-		projectConfig.Author = c.Prompt("Author")
-	}
-
-	if projectConfig.DbType == "" {
-		projectConfig.DbType = c.PromptOptions("Database type", []string{"sqlite", "mysql", "postgres"})
-	}
 }
 
 func (c *CLI) Prompt(prompt string) string {

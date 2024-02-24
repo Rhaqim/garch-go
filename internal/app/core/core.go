@@ -5,22 +5,22 @@ import (
 
 	"github.com/Rhaqim/garch-go/internal/adapter/cli"
 	"github.com/Rhaqim/garch-go/internal/app/domain"
-	"github.com/Rhaqim/garch-go/internal/app/usecase"
+	"github.com/Rhaqim/garch-go/internal/app/service"
 )
 
 type Core struct {
-	project usecase.ProjectUseCase
 }
 
-func NewCore(project usecase.ProjectUseCase) *Core {
-	return &Core{
-		project: project,
-	}
+func NewCore() *Core {
+	return &Core{}
 }
 
 func (c *Core) Run() {
 	// Initialize CLI
 	var cli cli.CLIInterface = cli.NewCLI()
+
+	// Initialize project service
+	project := service.NewProjectService(cli)
 
 	// Parse the command line arguments
 	config := domain.ProjectConfig{}
@@ -34,18 +34,11 @@ func (c *Core) Run() {
 
 	switch os.Args[1] {
 	case "gen":
-		cli.Start(&config)
+		project.GenerateProject(&config)
 	case "--help":
-		cli.Usage()
+		project.Help()
 	default:
 		cli.InvalidArgs()
 	}
-
-	// Print project details
-	cli.Display("Project generated successfully!")
-	cli.Display("Title:", config.Title)
-	cli.Display("Author:", config.Author)
-	cli.Display("Database Type:", config.DbType)
-	cli.Display("Architecture:", config.Arch)
 
 }
