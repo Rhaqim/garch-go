@@ -1,44 +1,36 @@
 package core
 
-import (
-	"os"
-
-	"github.com/Rhaqim/garch-go/internal/adapter/cli"
-	"github.com/Rhaqim/garch-go/internal/app/domain"
-	"github.com/Rhaqim/garch-go/internal/app/service"
-)
+import "github.com/Rhaqim/garch-go/internal/app/domain"
 
 type Core struct {
+	Project *domain.ProjectConfig
+	Folders []FolderStructure
+	Files   []FileStructure
 }
 
-func NewCore() *Core {
-	return &Core{}
+func NewCore(project *domain.ProjectConfig) CoreInterface {
+	return &Core{
+		Project: project,
+	}
 }
 
-func (c *Core) Run() {
-	// Initialize CLI
-	var cli cli.CLIInterface = cli.NewCLI()
+func (c *Core) Generate() {
+	CreateFolder(c.Project.Title)
+	ChangeDirectory(c.Project.Title)
 
-	// Initialize project service
-	project := service.NewProjectService(cli)
+	// git init
+	RunGitInit()
 
-	// Parse the command line arguments
-	config := domain.ProjectConfig{}
+	// go mod init
+	RunGoInit(c.Project.Author, c.Project.Title)
 
-	cli.Display("Welcome to Garch! \n")
+	// Generate the folder structure
+	GenerateRecursive(c.Folders...)
 
-	if len(os.Args) < 2 {
-		project.Usage()
-		return
+	// Generate root files
+	if len(c.Files) > 0 {
+		for _, file := range c.Files {
+			CreateFile(file.FileName, file.Content)
+		}
 	}
-
-	switch os.Args[1] {
-	case "gen":
-		project.GenerateProject(&config)
-	case "--help":
-		project.Help()
-	default:
-		project.Usage()
-	}
-
 }

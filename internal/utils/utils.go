@@ -6,6 +6,22 @@ import (
 	"strings"
 )
 
+// Colorise text in the terminal
+func Colorise(color string, text string) string {
+	colors := map[string]string{
+		"reset":   "\033[0m",
+		"black":   "\033[30m",
+		"red":     "\033[31m",
+		"green":   "\033[32m",
+		"yellow":  "\033[33m",
+		"blue":    "\033[34m",
+		"magenta": "\033[35m",
+		"cyan":    "\033[36m",
+		"white":   "\033[37m",
+	}
+	return colors[color] + text + colors["reset"]
+}
+
 // NormalizeString normalizes a string by trimming spaces and converting it to lowercase
 func NormalizeString(s string) string {
 	return strings.TrimSpace(strings.ToLower(s))

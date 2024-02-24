@@ -6,6 +6,7 @@ import (
 
 	"github.com/Rhaqim/garch-go/config"
 	"github.com/Rhaqim/garch-go/internal/adapter/cli"
+	"github.com/Rhaqim/garch-go/internal/app/core"
 	"github.com/Rhaqim/garch-go/internal/app/domain"
 	"github.com/Rhaqim/garch-go/internal/app/usecase"
 	"github.com/Rhaqim/garch-go/internal/utils"
@@ -39,6 +40,11 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 	genCMD.Parse(os.Args[2:])
 
 	s.HandleArgs(config)
+
+	new_core := core.NewCore(config)
+
+	// Generate the project
+	new_core.Generate()
 
 	// Print project details
 	s.cli.Display("Project generated successfully!")
