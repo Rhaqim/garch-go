@@ -52,7 +52,7 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 
 // PrintHelp implements ProjectServiceInterface.
 func (s *ProjectService) Help() {
-	s.cli.InvalidArgs("Usage: garch-go [command] [options]")
+	s.cli.Display("Usage: garch-go [command] [options]")
 }
 
 // Usage implements ProjectServiceInterface.

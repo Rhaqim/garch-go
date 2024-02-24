@@ -2,8 +2,6 @@ package cli
 
 // CLIInterface provides methods for interacting with the command-line
 type CLIInterface interface {
-	// InvalidArgs prints the invalid arguments message
-	InvalidArgs(message ...interface{})
 	// Prompt asks the user for input
 	Prompt(prompt string) string
 	// PromptOptions asks the user to choose from a list of options

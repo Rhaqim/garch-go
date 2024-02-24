@@ -2,7 +2,6 @@ package cli
 
 import (
 	"fmt"
-	"os"
 )
 
 // CLI represents the CLI adapter
@@ -11,15 +10,6 @@ type CLI struct{}
 // NewCLI creates a new instance of CLI
 func NewCLI() CLIInterface {
 	return &CLI{}
-}
-
-func (c *CLI) InvalidArgs(message ...interface{}) {
-	if len(os.Args) < 2 {
-		c.Display(message...)
-		return
-	}
-
-	c.Display("Unknown command:", os.Args[1], message)
 }
 
 func (c *CLI) Prompt(prompt string) string {
