@@ -7,33 +7,35 @@ GaarchGo/
 │
 ├── cmd/
 │   └── gen/
-│       └── main.go            # Entry point for the 'gen' command
+│       └── main.go               # Entry point for the 'gen' command
 │
 ├── internal/
-│   ├── adapter/               # Adapters for CLI interaction
-│   │   └── cli/               # CLI adapter
-│   │       └── cli.go         # Implementation for CLI interaction
+│   ├── adapter/                  # Adapters for CLI interaction
+│   │   └── cli/                  # CLI adapter
+│   │       └── cli.go            # Implementation for CLI interaction
 │   │
-│   ├── app/                   # Application core
-│   │   ├── core/              # Domain layer
-│   │   │   └── commands.go    # commands ran on the terminal
-│   │   │   └── core.go        # contains core functionalty
-│   │   ├── domain/            # Domain layer
-│   │   │   └── model.go       # Define domain models/interfaces
-│   │   ├── service/           # Business logic layer
-│   │   │   └── service.go     # Define application services
-│   │   └── usecase/           # Application use cases
-│   │       └── usecase.go     # Define use case interfaces
+│   ├── app/                      # Application core
+│   │   ├── core/                 # Domain layer
+│   │   │   └── commands.go       # commands ran on the terminal
+│   │   │   └── core.go           # contains core functionalty
+│   │   ├── domain/               # Domain layer
+│   │   │   └── model.go          # Define domain models/interfaces
+│   │   ├── service/              # Business logic layer
+│   │   │   └── service.go        # Define application services
+│   │   └── usecase/              # Application use cases
+│   │       └── usecase.go        # Define use case interfaces
 │   │
-│   ├── infrastructure/        # Infrastructure layer
-│   │   └── repository/        # Stub repository for future use
-│   │       └── repository.go  # Interface for project repository
+│   ├── infrastructure/           # Infrastructure layer
+│   │   └── architectures/        # Stub architecture for different architectures
+│   │       └── architecture.go   # Holds the root files and folders for the architectures
+│   │   └── repository/           # Stub repository for future use
+│   │       └── repository.go     # Interface for project repository
 │   │
-│   └── utils/                 # Utilities package
-│       └── utils.go           # Utility functions/helpers
+│   └── utils/                    # Utilities package
+│       └── utils.go              # Utility functions/helpers
 │
-└── config/                    # Configuration files
-    └── config.go              # Configuration loading logic
+└── config/                       # Configuration files
+    └── config.go                 # Configuration loading logic
 ```
 
 ### Explanation
@@ -69,6 +71,10 @@ GaarchGo/
       - **`cli.go`**: Contains the implementation of the CLI adapter, including parsing command-line arguments and invoking the appropriate use cases from the application core.
 
   - **`infrastructure/`**: This directory contains implementations of interfaces defined in the `app` package, such as database repositories or external API clients.
+
+    - **`architectures/`**: Contains the stub architecture for different architectures. This directory can be extended to include different architectures, such as MVC, MVP, or MVVM.
+
+      - **`architecture.go`**: Holds the root files and folders for the architectures.
 
     - **`repository/`**: Contains the repository interface and its implementations. In this example, there is a stub repository that doesn't interact with a real database or external service.
   

@@ -1,4 +1,4 @@
-package architecture
+package hexagonal
 
 import "github.com/Rhaqim/garch-go/internal/app/domain"
 

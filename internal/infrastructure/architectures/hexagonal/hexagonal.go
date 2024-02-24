@@ -1,12 +1,12 @@
-package architecture
+package hexagonal
 
 import (
 	"github.com/Rhaqim/garch-go/internal/app/domain"
-	architecture "github.com/Rhaqim/garch-go/internal/infrastructure/architectures"
+	repo "github.com/Rhaqim/garch-go/internal/infrastructure/repository"
 )
 
 // Root files for hexagonal architecture
-var HexRootFiles []domain.FileStructure = architecture.RootFiles
+var HexRootFiles []domain.FileStructure = repo.RootFiles
 
 // RootFolders for hexagonal architecture
 const CMD_FOLDER = "cmd"
@@ -18,7 +18,7 @@ var HexRootFolders []domain.FolderStructure = []domain.FolderStructure{
 	{
 		FolderTitle: CMD_FOLDER,
 		Files: []domain.FileStructure{
-			architecture.MainFile,
+			repo.MainFile,
 		},
 	},
 	{

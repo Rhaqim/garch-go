@@ -8,3 +8,6 @@ install:
 
 build:
 	go build -o bin/garch cmd/gen/main.go
+
+test-build:
+	./bin/garch gen --title Pixle

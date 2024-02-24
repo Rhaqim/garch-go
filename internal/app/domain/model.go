@@ -36,3 +36,8 @@ type FileStructure struct {
 	FileName    string
 	FileContent string
 }
+
+type ArchitectureLayout struct {
+	Files   []FileStructure
+	Folders []FolderStructure
+}
