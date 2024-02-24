@@ -1,8 +1,9 @@
 package core
 
 import (
+	"github.com/Rhaqim/garch-go/config"
 	"github.com/Rhaqim/garch-go/internal/app/domain"
-	hex "github.com/Rhaqim/garch-go/internal/infrastructure/architectures/hexagonal"
+	arch "github.com/Rhaqim/garch-go/internal/infrastructure/architectures"
 )
 
 type Core struct {
@@ -12,13 +13,14 @@ type Core struct {
 }
 
 func NewCore(project *domain.ProjectConfig) CoreInterface {
-	folders := hex.HexRootFolders
-	files := hex.HexRootFiles
+
+	// Get the architecture layout
+	architecture := arch.ArchitetureMap[config.ArchitecureType(project.Arch)]
 
 	return &Core{
 		Project: project,
-		Folders: folders,
-		Files:   files,
+		Folders: architecture.Folders,
+		Files:   architecture.Files,
 	}
 }
 
