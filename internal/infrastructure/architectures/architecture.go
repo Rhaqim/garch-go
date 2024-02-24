@@ -1,7 +1,7 @@
 package architecture
 
 import (
-	"github.com/Rhaqim/garch-go/internal/app/core"
+	"github.com/Rhaqim/garch-go/internal/app/domain"
 )
 
 const README_FILE = "README.md"
@@ -81,12 +81,12 @@ func main() {
 }
 `
 
-var MainFile = core.FileStructure{
+var MainFile = domain.FileStructure{
 	FileName:    MAIN_FILE,
 	FileContent: MAIN_CONTENT,
 }
 
-var RootFiles = []core.FileStructure{
+var RootFiles = []domain.FileStructure{
 	{
 		FileName:    README_FILE,
 		FileContent: README_CONTENT,

@@ -25,3 +25,14 @@ var Deps = ProjectDependencies{
 	Service: []string{"grpc", "nats", "rabbitmq"},
 	Other:   []string{},
 }
+
+type FolderStructure struct {
+	FolderTitle string
+	SubFolders  []FolderStructure
+	Files       []FileStructure
+}
+
+type FileStructure struct {
+	FileName    string
+	FileContent string
+}

@@ -1,6 +1,6 @@
 package architecture
 
-import "github.com/Rhaqim/garch-go/internal/app/core"
+import "github.com/Rhaqim/garch-go/internal/app/domain"
 
 // Folders: adapters, core
 const ADAPTERS_FOLDER = "adapters"
@@ -47,60 +47,54 @@ const SERVICE_FILE = "service.go"
 const ERROR_FILE = "error.go"
 const LOGGER_FILE = "logger.go"
 
-var HexInternalFolders []core.FolderStructure = []core.FolderStructure{
+var HexInternalFolders []domain.FolderStructure = []domain.FolderStructure{
 	{
 		FolderTitle: ADAPTERS_FOLDER,
-		Files:       []core.FileStructure{},
-		SubFolders: []core.FolderStructure{
+		SubFolders: []domain.FolderStructure{
 			{
 				FolderTitle: CACHE_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    CACHE_FILE,
 						FileContent: `package cache`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 			{
 				FolderTitle: HANDLER_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    HANDLER_FILE,
 						FileContent: `package handler`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 			{
 				FolderTitle: REPOSITORY_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    REPOSITORY_FILE,
 						FileContent: `package repository`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 			{
 				FolderTitle: TOKEN_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    TOKEN_FILE,
 						FileContent: `package token`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 		},
 	},
 	{
 		FolderTitle: CORE_FOLDER,
-		Files:       []core.FileStructure{},
-		SubFolders: []core.FolderStructure{
+		SubFolders: []domain.FolderStructure{
 			{
 				FolderTitle: DOMAIN_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    ENTITY_FILE,
 						FileContent: `package domain`,
@@ -110,11 +104,10 @@ var HexInternalFolders []core.FolderStructure = []core.FolderStructure{
 						FileContent: `package domain`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 			{
 				FolderTitle: PORT_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    INPUT_PORT_FILE,
 						FileContent: `package port`,
@@ -124,21 +117,19 @@ var HexInternalFolders []core.FolderStructure = []core.FolderStructure{
 						FileContent: `package port`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 			{
 				FolderTitle: SERVICE_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    SERVICE_FILE,
 						FileContent: `package service`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 			{
 				FolderTitle: UTIL_FOLDER,
-				Files: []core.FileStructure{
+				Files: []domain.FileStructure{
 					{
 						FileName:    ERROR_FILE,
 						FileContent: `package util`,
@@ -148,7 +139,6 @@ var HexInternalFolders []core.FolderStructure = []core.FolderStructure{
 						FileContent: `package util`,
 					},
 				},
-				SubFolders: []core.FolderStructure{},
 			},
 		},
 	},

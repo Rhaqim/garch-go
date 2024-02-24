@@ -1,16 +1,24 @@
 package core
 
-import "github.com/Rhaqim/garch-go/internal/app/domain"
+import (
+	"github.com/Rhaqim/garch-go/internal/app/domain"
+	hex "github.com/Rhaqim/garch-go/internal/infrastructure/architectures/hexagonal"
+)
 
 type Core struct {
 	Project *domain.ProjectConfig
-	Folders []FolderStructure
-	Files   []FileStructure
+	Folders []domain.FolderStructure
+	Files   []domain.FileStructure
 }
 
 func NewCore(project *domain.ProjectConfig) CoreInterface {
+	folders := hex.HexRootFolders
+	files := hex.HexRootFiles
+
 	return &Core{
 		Project: project,
+		Folders: folders,
+		Files:   files,
 	}
 }
 
@@ -19,7 +27,7 @@ func (c *Core) Generate() {
 	ChangeDirectory(c.Project.Title)
 
 	// git init
-	RunGitInit()
+	// RunGitInit()
 
 	// go mod init
 	RunGoInit(c.Project.Author, c.Project.Title)

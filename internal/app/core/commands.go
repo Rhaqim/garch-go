@@ -3,6 +3,9 @@ package core
 import (
 	"os"
 	"os/exec"
+	"sync"
+
+	"github.com/Rhaqim/garch-go/internal/app/domain"
 )
 
 func CreateFolder(title string) {
@@ -36,7 +39,7 @@ func CreateFile(title string, content string) {
 	}
 }
 
-func GenerateRecursive(items ...FolderStructure) {
+func GenerateRecursive(items ...domain.FolderStructure) {
 	// Generate the folder structure
 	if len(items) > 0 {
 		for _, item := range items {
@@ -50,6 +53,32 @@ func GenerateRecursive(items ...FolderStructure) {
 			}
 
 			GenerateRecursive(item.SubFolders...)
+			ChangeDirectory("..")
+		}
+	}
+
+}
+
+func GenerateRecursiveV2(items ...domain.FolderStructure) {
+	// Generate the folder structure
+	var wg sync.WaitGroup
+
+	if len(items) > 0 {
+		for _, item := range items {
+			CreateFolder(item.FolderTitle)
+			ChangeDirectory(item.FolderTitle)
+
+			if len(item.Files) > 0 {
+				for _, file := range item.Files {
+					wg.Add(1)
+					go func(file domain.FileStructure) {
+						defer wg.Done()
+						CreateFile(file.FileName, file.FileContent)
+					}(file)
+				}
+			}
+
+			GenerateRecursiveV2(item.SubFolders...)
 			ChangeDirectory("..")
 		}
 	}
