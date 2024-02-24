@@ -19,6 +19,6 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 }
 
 // PrintHelp implements ProjectServiceInterface.
-func (s *ProjectService) PrintHelp() {
+func (s *ProjectService) Help() {
 	panic("unimplemented")
 }

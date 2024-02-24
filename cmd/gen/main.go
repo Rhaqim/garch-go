@@ -2,17 +2,22 @@ package main
 
 import (
 	"github.com/Rhaqim/garch-go/internal/adapter/cli"
+	"github.com/Rhaqim/garch-go/internal/app/core"
 	"github.com/Rhaqim/garch-go/internal/app/service"
 )
 
 func main() {
 
-	// Initialize application service
-	projectService := service.NewProjectService()
+	// Initialize CLI
+	cli := cli.NewCLI()
 
-	// Initialize CLI adapter
-	cli := cli.NewCLI(projectService)
+	// Initialize project service
+	project := service.NewProjectService()
 
-	cli.Start()
+	// Initialize application
+	core := core.NewCore(project, cli)
+
+	// Run the application
+	core.Run()
 
 }

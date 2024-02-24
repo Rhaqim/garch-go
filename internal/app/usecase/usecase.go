@@ -8,5 +8,5 @@ type ProjectUseCase interface {
 	// with the given title, author, dbType, and arch
 	GenerateProject(config *domain.ProjectConfig) error
 	// PrintHelp prints the help message
-	PrintHelp()
+	Help()
 }
