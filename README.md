@@ -1,76 +1,114 @@
-# Garch CLI Application
+# GarchGo CLI Application
 
-## Project Structure
+Garch is a command-line interface (CLI) application built with Go. It is used to generate Go boilerplate code for different projects and depending on the architecture, different folder structures are generated.
+
+## Table of Contents
+
+- [GarchGo CLI Application](#garchgo-cli-application)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Architectures](#architectures)
+    - [Hexagonal Architecture](#hexagonal-architecture)
+  - [License](#license)
+  - [Acknowledgements](#acknowledgements)
+  - [Contributing](#contributing)
+
+## Installation
+
+To install Garch, you need to have Rust and Cargo installed on your system. Once you have them set up, you can install Garch by running the following command:
+
+- via Go:
 
 ```bash
-GaarchGo/
-│
-├── cmd/
-│   └── gen/
-│       └── main.go            # Entry point for the 'gen' command
-│
-├── internal/
-│   ├── app/                   # Application core
-│   │   ├── domain/            # Domain layer
-│   │   │   └── model.go       # Define domain models/interfaces
-│   │   ├── service/           # Business logic layer
-│   │   │   └── service.go     # Define application services
-│   │   └── usecase/           # Application use cases
-│   │       └── usecase.go     # Define use case interfaces
-│   │
-│   ├── adapter/               # Adapters for CLI interaction
-│   │   └── cli/               # CLI adapter
-│   │       └── cli.go         # Implementation for CLI interaction
-│   │
-│   ├── infrastructure/        # Infrastructure layer
-│   │   └── repository/        # Stub repository for future use
-│   │       └── repository.go  # Interface for project repository
-│   │
-│   └── utils/                 # Utilities package
-│       └── utils.go           # Utility functions/helpers
-│
-└── config/                    # Configuration files
-    └── config.go              # Configuration loading logic
+go get -u github.com/Rhaqim/garch-go
 ```
 
-### Explanation
+- via Git:
 
-- **`cmd/`**: This directory contains the main executable for the CLI application. It's responsible for parsing command-line arguments and invoking the appropriate functionality from the application core.
+```bash
+git clone https://github.com/Rhaqim/garch-go.git
+cd garch-go
+make install
+```
 
-- **`internal/`**: This directory contains the internal packages of the application. These packages should not be imported from outside the module. This convention ensures encapsulation and prevents accidental dependencies.
+- executeable -  the executeable will be located in the `root` directory of the project.
 
-  - **`app/`**: This directory contains the core logic of the application, including the domain, business logic, and use cases.
+```bash
+./garch-go --help
+```
 
-    - **`domain/`**: Contains the domain models and interfaces that define the core concepts of the application.
+## Usage
 
-      - **`model.go`**: Contains the domain models and interfaces that define the core concepts of the application.
+To use Garch, you need to run the following command:
 
-    - **`service/`**: Contains the application service, which encapsulates the business logic of the application.
+```bash
+garch --help
+```
 
-      - **`service.go`**: Contains the application service, which encapsulates the business logic of the application.
+This will display the help message, which will show you how to use Garch.
 
-    - **`usecase/`**: Contains the application use cases, which define the high-level interactions with the application.
+## Architectures
 
-      - **`usecase.go`**: Contains the application use cases, which define the high-level interactions with the application.
-  
-  - **`adapter/`**: This directory contains implementations of interfaces defined in the `app` package, such as CLI adapters or web API handlers.
+Garch supports the following architectures:
 
-    - **`cli/`**: Contains the CLI adapter, which is responsible for interacting with the command-line interface.
+- [Hexagonal Architecture](#hexagonal-architecture)
+- Clean Architecture (coming soon)
+- Onion Architecture (coming soon)
 
-      - **`cli.go`**: Contains the implementation of the CLI adapter, including parsing command-line arguments and invoking the appropriate use cases from the application core.
+### [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software))
 
-  - **`infrastructure/`**: This directory contains implementations of interfaces defined in the `app` package, such as database repositories or external API clients.
+The Hexagonal Architecture is a software design philosophy that separates the software into layers. It was introduced by Alistair Cockburn in 2005. The Hexagonal Architecture is composed of the following layers:
 
-    - **`repository/`**: Contains the repository interface and its implementations. In this example, there is a stub repository that doesn't interact with a real database or external service.
-  
-      - **`repository.go`**: Contains the repository interface, which defines the methods for interacting with the project repository.
-  
-  - **`utils/`**: Contains utility functions or helpers that are used throughout the application.
+```bash
+.
+├── LICENSE
+├── README.md
+├── cmd
+│   └── main.go
+├── go.mod
+├── internal
+│   ├── adapters
+│   │   ├── cache
+│   │   │   └── cache.go
+│   │   ├── handler
+│   │   │   └── handler.go
+│   │   ├── repository
+│   │   │   └── repository.go
+│   │   └── token
+│   │       └── token.go
+│   └── core
+│       ├── domain
+│       │   ├── entity.go
+│       │   └── value_object.go
+│       ├── port
+│       │   ├── input_port.go
+│       │   └── output_port.go
+│       ├── service
+│       │   └── service.go
+│       └── util
+│           ├── error.go
+│           └── logger.go
+├── pkg
+└── testdata
+```
 
-    - **`utils.go`**: Contains utility functions or helpers that are used throughout the application.
+## License
 
-- **`config/`**: Contains configuration files and logic for loading configuration settings into the application.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-  - **`config.go`**: Contains the logic for loading configuration settings from environment variables, configuration files, or other sources.
+## Acknowledgements
 
-This structure separates concerns clearly, making it easier to maintain and extend the application. Each layer has well-defined responsibilities, and dependencies flow inward toward the core, adhering to the principles of the hexagonal architecture.
+- [Rust Language](https://www.rust-lang.org/)
+- [Rustup](https://rustup.rs/)
+- [Cargo](https://doc.rust-lang.org/cargo/)
+- [Clap](https://clap.rs/)
+- [Rust Community](https://www.rust-lang.org/community)
+<!-- - [Askama](
+- [Handlebars](
+- [Rustfmt](
+- [Rustdoc]( -->
+
+## Contributing
+
+If you would like to contribute to this project, please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on our code of conduct, and the process for submitting pull requests to us.
