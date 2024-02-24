@@ -12,16 +12,18 @@ import (
 type CLIInterface interface {
 	// Start starts the CLI
 	Start(config *domain.ProjectConfig)
+	//Usage prints the usage message
+	Usage()
+	// InvalidArgs prints the invalid arguments message
+	InvalidArgs()
 	// Prompt asks the user for input
 	Prompt(prompt string) string
 	// PromptOptions asks the user to choose from a list of options
 	PromptOptions(prompt string, options []string) string
+	// Bool asks the user for a boolean input, Yes or No
+	Bool(prompt string) bool
 	// Println prints a line to the console
 	Display(a ...interface{})
-	// InvalidArgs prints the invalid arguments message
-	InvalidArgs()
-	//Usage prints the usage message
-	Usage()
 }
 
 // CLI represents the CLI adapter
@@ -45,6 +47,10 @@ func (c *CLI) Start(config *domain.ProjectConfig) {
 
 	genCMD.Parse(os.Args[2:])
 
+	if config.Arch == "" {
+		config.Arch = c.PromptOptions("Architecture", []string{"clean", "onion"})
+	}
+
 	if config.Title == "" {
 		config.Title = c.Prompt("Title")
 	}
@@ -57,9 +63,19 @@ func (c *CLI) Start(config *domain.ProjectConfig) {
 		config.DbType = c.PromptOptions("Database type", []string{"sqlite", "mysql", "postgres"})
 	}
 
-	if config.Arch == "" {
-		config.Arch = c.PromptOptions("Architecture", []string{"clean", "onion"})
+}
+
+func (c *CLI) Usage() {
+	c.Display("Usage: garch-go [command] [arguments]")
+}
+
+func (c *CLI) InvalidArgs() {
+	if len(os.Args) < 2 {
+		c.Display("Usage: garch-go [command] [arguments]")
+		return
 	}
+
+	c.Display("Unknown command:", os.Args[1])
 }
 
 func (c *CLI) Prompt(prompt string) string {
@@ -79,19 +95,20 @@ func (c *CLI) PromptOptions(prompt string, options []string) string {
 	return options[input-1]
 }
 
-func (c *CLI) Display(a ...interface{}) {
-	fmt.Println(a...)
-}
+func (c *CLI) Bool(prompt string) bool {
+	var input string
+	fmt.Printf("%s [y/n]: ", prompt)
+	fmt.Scanln(&input)
 
-func (c *CLI) InvalidArgs() {
-	if len(os.Args) < 2 {
-		c.Display("Usage: garch-go [command] [arguments]")
-		return
+	if input != "y" && input != "n" {
+		fmt.Println("Invalid input. Please enter y or n")
+		return c.Bool(prompt)
 	}
 
-	c.Display("Unknown command:", os.Args[1])
+	return input == "y"
+
 }
 
-func (c *CLI) Usage() {
-	c.Display("Usage: garch-go [command] [arguments]")
+func (c *CLI) Display(a ...interface{}) {
+	fmt.Println(a...)
 }

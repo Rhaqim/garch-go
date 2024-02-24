@@ -38,3 +38,20 @@ func (p *ProjectConfig) ParseTags() (short, long, desc []string) {
 	return short, long, desc
 
 }
+
+func (p *ProjectConfig) GetFields() (fields []string) {
+
+	fields = make([]string, 0)
+
+	// Parse the tags of the struct
+	t := reflect.TypeOf(*p)
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		// Do something with the tags
+		fields = append(fields, field.Name)
+
+	}
+
+	return fields
+
+}

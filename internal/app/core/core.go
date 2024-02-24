@@ -8,47 +8,44 @@ import (
 	"github.com/Rhaqim/garch-go/internal/app/usecase"
 )
 
-type CoreInterface interface {
-	Run()
-}
-
 type Core struct {
 	project usecase.ProjectUseCase
-	cli     cli.CLIInterface
 }
 
-func NewCore(project usecase.ProjectUseCase, cli cli.CLIInterface) CoreInterface {
+func NewCore(project usecase.ProjectUseCase) *Core {
 	return &Core{
 		project: project,
-		cli:     cli,
 	}
 }
 
 func (c *Core) Run() {
-	c.cli.Display("Welcome to Garch! \n")
+	// Initialize CLI
+	var cli cli.CLIInterface = cli.NewCLI()
 
 	// Parse the command line arguments
-	config := (domain.ProjectConfig{})
+	config := domain.ProjectConfig{}
+
+	cli.Display("Welcome to Garch! \n")
 
 	if len(os.Args) < 2 {
-		c.cli.InvalidArgs()
+		cli.InvalidArgs()
 		return
 	}
 
 	switch os.Args[1] {
 	case "gen":
-		c.cli.Start(&config)
+		cli.Start(&config)
 	case "--help":
-		c.cli.Usage()
+		cli.Usage()
 	default:
-		c.cli.InvalidArgs()
+		cli.InvalidArgs()
 	}
 
 	// Print project details
-	c.cli.Display("Project generated successfully!")
-	c.cli.Display("Title:", config.Title)
-	c.cli.Display("Author:", config.Author)
-	c.cli.Display("Database Type:", config.DbType)
-	c.cli.Display("Architecture:", config.Arch)
+	cli.Display("Project generated successfully!")
+	cli.Display("Title:", config.Title)
+	cli.Display("Author:", config.Author)
+	cli.Display("Database Type:", config.DbType)
+	cli.Display("Architecture:", config.Arch)
 
 }
