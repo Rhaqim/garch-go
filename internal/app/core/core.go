@@ -27,7 +27,7 @@ func (c *Core) Generate() {
 	ChangeDirectory(c.Project.Title)
 
 	// git init
-	// RunGitInit()
+	RunGitInit()
 
 	// go mod init
 	RunGoInit(c.Project.Author, c.Project.Title)
