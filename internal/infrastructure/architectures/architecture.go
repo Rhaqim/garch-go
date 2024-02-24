@@ -81,21 +81,22 @@ func main() {
 }
 `
 
+var MainFile = core.FileStructure{
+	FileName:    MAIN_FILE,
+	FileContent: MAIN_CONTENT,
+}
+
 var RootFiles = []core.FileStructure{
 	{
-		FileName: README_FILE,
-		Content:  README_CONTENT,
+		FileName:    README_FILE,
+		FileContent: README_CONTENT,
 	},
 	{
-		FileName: LICENSE_FILE,
-		Content:  LICENSE_CONTENT,
+		FileName:    LICENSE_FILE,
+		FileContent: LICENSE_CONTENT,
 	},
 	{
-		FileName: GITIGNORE_FILE,
-		Content:  GITIGNORE_CONTENT,
-	},
-	{
-		FileName: MAIN_FILE,
-		Content:  MAIN_CONTENT,
+		FileName:    GITIGNORE_FILE,
+		FileContent: GITIGNORE_CONTENT,
 	},
 }

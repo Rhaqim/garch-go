@@ -30,7 +30,7 @@ func (c *Core) Generate() {
 	// Generate root files
 	if len(c.Files) > 0 {
 		for _, file := range c.Files {
-			CreateFile(file.FileName, file.Content)
+			CreateFile(file.FileName, file.FileContent)
 		}
 	}
 }

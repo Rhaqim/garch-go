@@ -7,8 +7,8 @@ type FolderStructure struct {
 }
 
 type FileStructure struct {
-	FileName string
-	Content  string
+	FileName    string
+	FileContent string
 }
 
 type CoreInterface interface {

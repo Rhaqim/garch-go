@@ -45,7 +45,7 @@ func GenerateRecursive(items ...FolderStructure) {
 
 			if len(item.Files) > 0 {
 				for _, file := range item.Files {
-					CreateFile(file.FileName, file.Content)
+					CreateFile(file.FileName, file.FileContent)
 				}
 			}
 
