@@ -22,7 +22,7 @@ func main() {
 	cli.Display("Welcome to Garch! \n")
 
 	if len(os.Args) < 2 {
-		project.Usage()
+		project.Help()
 		return
 	}
 
@@ -32,7 +32,7 @@ func main() {
 	case "--help":
 		project.Help()
 	default:
-		project.Usage()
+		project.Help()
 	}
 
 }

@@ -66,11 +66,6 @@ func (s *ProjectService) Help() {
 	s.cmd.PrintDefaults()
 }
 
-// Usage implements ProjectServiceInterface.
-func (s *ProjectService) Usage() {
-	s.cli.Display("Usage: garch-go [command] [options]")
-}
-
 func (s *ProjectService) HandleArgs(projectConfig *domain.ProjectConfig) {
 	defaultUsername := utils.GetGitUsername()
 	defaultTitle := "MyProject"
