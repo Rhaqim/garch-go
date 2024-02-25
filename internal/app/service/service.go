@@ -16,12 +16,16 @@ import (
 // ProjectService provides methods for project management
 type ProjectService struct {
 	cli cli.CLIInterface
+	cmd *flag.FlagSet
 }
 
 // NewProjectService creates a new instance of ProjectService
 func NewProjectService(cli cli.CLIInterface) usecase.ProjectUseCase {
+	genCMD := flag.NewFlagSet("gen", flag.ExitOnError)
+
 	return &ProjectService{
 		cli: cli,
+		cmd: genCMD,
 	}
 }
 
@@ -29,11 +33,11 @@ func NewProjectService(cli cli.CLIInterface) usecase.ProjectUseCase {
 func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 	var err error
 
-	genCMD := Parser(config)
-
-	genCMD.Parse(os.Args[2:])
-
+	// Handle the arguments
 	s.HandleArgs(config)
+
+	// Parse the project configuration
+	s.Parser(config)
 
 	new_core := core.NewCore(config)
 
@@ -54,6 +58,12 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 // PrintHelp implements ProjectServiceInterface.
 func (s *ProjectService) Help() {
 	s.cli.Display("Usage: garch-go [command] [options]")
+	s.cli.Display("Commands:")
+	s.cli.Display("  gen [options]  Generate a new project")
+	s.cli.Display("  help           Display help")
+	s.Parser(&domain.ProjectConfig{})
+	s.cli.Display("Options:")
+	s.cmd.PrintDefaults()
 }
 
 // Usage implements ProjectServiceInterface.
@@ -101,8 +111,7 @@ func (s *ProjectService) HandleArgs(projectConfig *domain.ProjectConfig) {
 // and returns a flagset
 // It works by using reflection to get the fields of the struct
 // and then adding the fields to the flagset
-func Parser(config *domain.ProjectConfig) *flag.FlagSet {
-	genCMD := flag.NewFlagSet("gen", flag.ExitOnError)
+func (s *ProjectService) Parser(config *domain.ProjectConfig) {
 
 	t := reflect.TypeOf(config)
 
@@ -119,12 +128,12 @@ func Parser(config *domain.ProjectConfig) *flag.FlagSet {
 		long := tag.Get("long")
 		description := tag.Get("description")
 
-		genCMD.StringVar(GetField(config, field.Name), short, "", description)
-		genCMD.StringVar(GetField(config, field.Name), long, "", description)
+		s.cmd.StringVar(GetField(config, field.Name), short, "", description)
+		s.cmd.StringVar(GetField(config, field.Name), long, "", description)
 
 	}
 
-	return genCMD
+	s.cmd.Parse(os.Args[2:])
 }
 
 // GetField returns the field of a struct
