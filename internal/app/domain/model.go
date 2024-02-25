@@ -18,22 +18,6 @@ type ProjectDependencies struct {
 	Other   []string
 }
 
-var Deps = ProjectDependencies{
-	API:     []string{"echo", "gin", "fiber", "chi"},
-	CLI:     []string{"cobra", "cli"},
-	Lib:     []string{"ginkgo", "gomega", "testify"},
-	Service: []string{"grpc", "nats", "rabbitmq"},
-	Other:   []string{},
-}
-
-var DepsStringMap = map[string][]string{
-	"API":     Deps.API,
-	"CLI":     Deps.CLI,
-	"Lib":     Deps.Lib,
-	"Service": Deps.Service,
-	"Other":   Deps.Other,
-}
-
 type FolderStructure struct {
 	FolderTitle string
 	SubFolders  []FolderStructure

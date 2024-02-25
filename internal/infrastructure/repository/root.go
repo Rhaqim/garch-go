@@ -5,8 +5,7 @@ import (
 )
 
 const README_FILE = "README.md"
-const README_CONTENT = `
-# Hexagonal Architecture Boilerplate
+const README_CONTENT = `# Hexagonal Architecture Boilerplate
 
 ## Introduction
 
@@ -26,10 +25,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- [Garch](https://github.com/Rhaqim/garch)
+- [Garch](https://github.com/Rhaqim/garch-go)
 - [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software))
 - [Go](https://golang.org/)
-- [Rust](https://www.rust-lang.org/)
 `
 
 // License

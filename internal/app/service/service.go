@@ -30,6 +30,7 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 
 	genCMD := flag.NewFlagSet("gen", flag.ExitOnError)
 
+	genCMD.StringVar(&config.Type, "type", "", "Type of the project")
 	genCMD.StringVar(&config.Title, "title", "", "Title of the project")
 	genCMD.StringVar(&config.Author, "author", "", "Author of the project")
 	genCMD.StringVar(&config.DbType, "db", "", "Database type")
@@ -67,27 +68,37 @@ func (s *ProjectService) Usage() {
 }
 
 func (s *ProjectService) HandleArgs(projectConfig *domain.ProjectConfig) {
+	defaultUsername := utils.GetGitUsername()
+	defaultTitle := "MyProject"
+	defaultType := "Other"
+	defaultArch := "Hexagonal"
+	defaultDB := "sqlite"
+
 	// Select the type of the project
 	projectTypes := utils.GetFields(domain.Deps)
 
 	if projectConfig.Type == "" {
-		projectConfig.Type = s.cli.PromptOptions("Type of the project", projectTypes)
+		projectConfig.Type = s.cli.PromptOptions("What type of project are you building? default: "+defaultType, projectTypes)
 	}
 
 	// Select the architecture type
 	if projectConfig.Arch == "" {
-		projectConfig.Arch = s.cli.PromptOptions("Architecture", config.ArchTypes)
+		projectConfig.Arch = s.cli.PromptOptions("Select the architecture type default: "+defaultArch, config.ArchTypes)
 	}
 
 	if projectConfig.Title == "" {
-		projectConfig.Title = s.cli.Prompt("Title")
+		projectConfig.Title = s.cli.Prompt("Project title default: "+defaultTitle, defaultTitle)
 	}
 
 	if projectConfig.Author == "" {
-		projectConfig.Author = s.cli.Prompt("Author")
+		projectConfig.Author = s.cli.Prompt("Author default: "+defaultUsername, defaultUsername)
 	}
 
 	if projectConfig.DbType == "" {
-		projectConfig.DbType = s.cli.PromptOptions("Database type", []string{"sqlite", "mysql", "postgres"})
+		ok := s.cli.Bool("Do you want to use a database?")
+		if !ok {
+			return
+		}
+		projectConfig.DbType = s.cli.PromptOptions("Database type default: "+defaultDB, []string{"sqlite", "mysql", "postgres", "mssql"})
 	}
 }

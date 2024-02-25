@@ -12,10 +12,15 @@ func NewCLI() CLIInterface {
 	return &CLI{}
 }
 
-func (c *CLI) Prompt(prompt string) string {
+func (c *CLI) Prompt(prompt string, defaultValue ...string) string {
 	var input string
 	fmt.Printf("%s: ", prompt)
+	// if user input is empty, use the default value
 	fmt.Scanln(&input)
+	if input == "" && len(defaultValue) > 0 {
+		return defaultValue[0]
+	}
+
 	return input
 }
 
@@ -26,6 +31,11 @@ func (c *CLI) PromptOptions(prompt string, options []string) string {
 	}
 	var input int
 	fmt.Scanln(&input)
+	if input < 1 || input > len(options) {
+		fmt.Println("Invalid input. Please enter a number between 1 and", len(options))
+		return c.PromptOptions(prompt, options)
+	}
+
 	return options[input-1]
 }
 

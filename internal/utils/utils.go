@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"os/exec"
 	"reflect"
 	"strings"
 	"time"
@@ -126,4 +127,14 @@ func (l *Loading) Start(message string) {
 func (l *Loading) Stop() {
 	close(l.quit)
 	fmt.Println(" Done")
+}
+
+// Fetch username from git config
+func GetGitUsername() string {
+	cmd := exec.Command("git", "config", "user.name")
+	out, err := cmd.Output()
+	if err != nil {
+		panic(err)
+	}
+	return strings.TrimSpace(string(out))
 }

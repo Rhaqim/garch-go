@@ -110,7 +110,9 @@ func RunGoGet(dependencies ...string) {
 	loader := &utils.Loading{}
 
 	for _, dep := range dependencies {
-		getCMD := fetchDependencyCMD(dep)
+
+		// Get the command for the dependency
+		getCMD := domain.DependencyMap[dep]
 
 		loader.Start("Fetching dependency: " + dep)
 		cmd := exec.Command("go", "get", getCMD)
@@ -120,23 +122,4 @@ func RunGoGet(dependencies ...string) {
 			panic(err)
 		}
 	}
-}
-
-func fetchDependencyCMD(dependency string) string {
-	var dependencyMap = map[string]string{
-		"echo":     "github.com/labstack/echo/v4",
-		"gin":      "github.com/gin-gonic/gin",
-		"fiber":    "github.com/gofiber/fiber/v2",
-		"chi":      "github.com/go-chi/chi",
-		"cobra":    "github.com/spf13/cobra",
-		"cli":      "github.com/urfave/cli/v2",
-		"ginkgo":   "github.com/onsi/ginkgo",
-		"gomega":   "github.com/onsi/gomega",
-		"testify":  "github.com/stretchr/testify",
-		"grpc":     "google.golang.org/grpc",
-		"nats":     "github.com/nats-io/nats.go",
-		"rabbitmq": "github.com/streadway/amqp",
-	}
-
-	return dependencyMap[dependency]
 }
