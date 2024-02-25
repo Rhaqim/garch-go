@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"flag"
 	"fmt"
 	"os/exec"
 	"reflect"
@@ -62,6 +63,12 @@ func GetFields(p interface{}) (fields []string) {
 	return fields
 }
 
+func GetField(p interface{}, fieldName string) *string {
+	v := reflect.ValueOf(p)
+	f := reflect.Indirect(v).FieldByName(fieldName)
+	return f.Addr().Interface().(*string)
+}
+
 // GetTags returns the tags of a struct
 func GetTags(p interface{}, tags ...string) (tagValues map[string][]string) {
 
@@ -92,6 +99,38 @@ func GetTags(p interface{}, tags ...string) (tagValues map[string][]string) {
 
 	return tagValues
 
+}
+
+func CLIParser(p interface{}) *flag.FlagSet {
+	fs := flag.NewFlagSet("parser", flag.ExitOnError)
+
+	t := reflect.TypeOf(p)
+	if t.Kind() == reflect.Ptr {
+		t = t.Elem()
+	}
+
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+
+		// get the tags of the field
+		tag := field.Tag
+		short := tag.Get("short")
+		long := tag.Get("long")
+		description := tag.Get("description")
+
+		// ensure that the short and long flags are not empty
+		if short == "" || long == "" {
+			continue
+		}
+
+		fmt.Println(field)
+
+		// Add the field to the flagset
+		fs.StringVar(GetField(p, field.Name), short, "", description)
+		fs.StringVar(GetField(p, field.Name), long, "", description)
+	}
+
+	return fs
 }
 
 // Loading represents a loading animation

@@ -8,6 +8,8 @@ Garch is a command-line interface (CLI) application built with Go. It is used to
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
+    - [Parameters](#parameters)
+    - [Examples](#examples)
   - [Architectures](#architectures)
     - [Hexagonal Architecture](#hexagonal-architecture)
       - [Explanation of each directory (Hexagonal Architecture)](#explanation-of-each-directory-hexagonal-architecture)
@@ -55,6 +57,65 @@ garch --help
 ```
 
 This will display the help message, which will show you how to use Garch.
+
+### Parameters
+
+- `--name` or `-n`: The name of the project you want to generate.
+- `--architecture` or `-a`: The architecture you want to use for the project. The available options are `hexagonal`, `clean`, `onion`, and `ddd`.
+- `--type` or `-t`: The type of the project you want to generate. The available options are `api`, `cli`, and `library`.
+- `--user` or `-u`: The user name to use in the project's configuration file. The default is gotten from the git configuration.
+- `--output` or `-o`: The output directory where the project will be generated. If not specified, the project will be generated in the current directory.
+- `--help` or `-h`: Display the help message.
+- `--version` or `-v`: Display the version of Garch.
+- `--list` or `-l`: List the available architectures.
+- `--force` or `-f`: Force the generation of the project, even if the output directory is not empty.
+- `--dry-run` or `-d`: Perform a dry run, which will show the files and directories that will be generated without actually generating them.
+- `--verbose` or `-V`: Enable verbose output.
+- `--quiet` or `-q`: Suppress all output.
+- `--config` or `-g`: Generate a configuration file for the project.
+
+### Examples
+
+To generate a project using the hexagonal architecture with the name `myapp` in the current directory, you can run the following command:
+
+```bash
+garch -n myapp -a hexagonal
+```
+
+To generate a project using the clean architecture with the name `myapp` in a specific output directory, you can run the following command:
+
+```bash
+garch -n myapp -a clean -o /path/to/output/directory
+```
+
+To list the available architectures, you can run the following command:
+
+```bash
+garch -l
+```
+
+To generate a configuration file for the project, you can run the following command:
+
+```bash
+garch -n myapp -a hexagonal -g
+```
+
+if no parameters are passed, the user will be prompted to enter the project name and the architecture to use.
+
+```bash
+garch
+
+Enter the name of the project: myapp
+Choose the architecture to use:
+1. Hexagonal
+2. Clean
+3. Onion
+4. DDD
+Enter the number of the architecture to use: 1
+
+Generating project...
+Project generated successfully.
+```
 
 ## Architectures
 

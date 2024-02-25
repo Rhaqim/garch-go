@@ -3,6 +3,7 @@ package service
 import (
 	"flag"
 	"os"
+	"reflect"
 
 	"github.com/Rhaqim/garch-go/config"
 	"github.com/Rhaqim/garch-go/internal/adapter/cli"
@@ -28,15 +29,7 @@ func NewProjectService(cli cli.CLIInterface) usecase.ProjectUseCase {
 func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 	var err error
 
-	genCMD := flag.NewFlagSet("gen", flag.ExitOnError)
-
-	genCMD.StringVar(&config.Type, "type", "", "Type of the project")
-	genCMD.StringVar(&config.Title, "title", "", "Title of the project")
-	genCMD.StringVar(&config.Author, "author", "", "Author of the project")
-	genCMD.StringVar(&config.DbType, "db", "", "Database type")
-	genCMD.StringVar(&config.Arch, "arch", "", "Architecture type")
-
-	flag.Parse()
+	genCMD := Parser(config)
 
 	genCMD.Parse(os.Args[2:])
 
@@ -49,6 +42,7 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 
 	// Print project details
 	s.cli.Display("Project generated successfully!")
+	s.cli.Display("Project Type:", config.Type)
 	s.cli.Display("Title:", config.Title)
 	s.cli.Display("Author:", config.Author)
 	s.cli.Display("Database Type:", config.DbType)
@@ -101,4 +95,43 @@ func (s *ProjectService) HandleArgs(projectConfig *domain.ProjectConfig) {
 		}
 		projectConfig.DbType = s.cli.PromptOptions("Database type default: "+defaultDB, []string{"sqlite", "mysql", "postgres", "mssql"})
 	}
+}
+
+// Parser parses the project configuration
+// and returns a flagset
+// It works by using reflection to get the fields of the struct
+// and then adding the fields to the flagset
+func Parser(config *domain.ProjectConfig) *flag.FlagSet {
+	genCMD := flag.NewFlagSet("gen", flag.ExitOnError)
+
+	t := reflect.TypeOf(config)
+
+	if t.Kind() == reflect.Ptr {
+		t = t.Elem()
+	}
+
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+
+		// get the tags of the field
+		tag := field.Tag
+		short := tag.Get("short")
+		long := tag.Get("long")
+		description := tag.Get("description")
+
+		genCMD.StringVar(GetField(config, field.Name), short, "", description)
+		genCMD.StringVar(GetField(config, field.Name), long, "", description)
+
+	}
+
+	return genCMD
+}
+
+// GetField returns the field of a struct
+// It works by using reflection to get the field of the struct
+// and then returning the field
+func GetField(config *domain.ProjectConfig, fieldName string) *string {
+	v := reflect.ValueOf(config)
+	f := reflect.Indirect(v).FieldByName(fieldName)
+	return f.Addr().Interface().(*string)
 }
