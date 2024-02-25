@@ -371,9 +371,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgements
 
 - [Rust Language](https://www.rust-lang.org/)
-- [Rustup](https://rustup.rs/)
-- [Cargo](https://doc.rust-lang.org/cargo/)
-- [Clap](https://clap.rs/)
+- [Go](https://golang.org/)
 - [Rust Community](https://www.rust-lang.org/community)
 <!-- - [Askama](
 - [Handlebars](
