@@ -61,9 +61,12 @@ func (s *ProjectService) Help() {
 	s.cli.Display("Commands:")
 	s.cli.Display("  gen [options]  Generate a new project")
 	s.cli.Display("  help           Display help")
-	s.Parser(&domain.ProjectConfig{})
 	s.cli.Display("Options:")
-	s.cmd.PrintDefaults()
+	s.cli.Display("  -t, --type     Project type")
+	s.cli.Display("  -a, --arch     Project architecture")
+	s.cli.Display("  -d, --db       Database type")
+	s.cli.Display("  -h, --help     Display help")
+	os.Exit(1)
 }
 
 func (s *ProjectService) HandleArgs(projectConfig *domain.ProjectConfig) {
