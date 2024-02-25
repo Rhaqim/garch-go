@@ -26,6 +26,14 @@ var Deps = ProjectDependencies{
 	Other:   []string{},
 }
 
+var DepsStringMap = map[string][]string{
+	"API":     Deps.API,
+	"CLI":     Deps.CLI,
+	"Lib":     Deps.Lib,
+	"Service": Deps.Service,
+	"Other":   Deps.Other,
+}
+
 type FolderStructure struct {
 	FolderTitle string
 	SubFolders  []FolderStructure

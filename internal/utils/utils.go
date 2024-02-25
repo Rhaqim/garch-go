@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // Colorise text in the terminal
@@ -90,4 +91,39 @@ func GetTags(p interface{}, tags ...string) (tagValues map[string][]string) {
 
 	return tagValues
 
+}
+
+// Loading represents a loading animation
+type Loading struct {
+	quit chan struct{}
+}
+
+// Start starts the loading animation with the given message
+func (l *Loading) Start(message string) {
+	fmt.Print(Colorise("green", message))
+	l.quit = make(chan struct{})
+
+	go func() {
+		for {
+			select {
+			case <-l.quit:
+				return
+			default:
+				fmt.Print("\b/") // Spinner position 1
+				time.Sleep(100 * time.Millisecond)
+				fmt.Print("\b-") // Spinner position 2
+				time.Sleep(100 * time.Millisecond)
+				fmt.Print("\b\\") // Spinner position 3
+				time.Sleep(100 * time.Millisecond)
+				fmt.Print("\b|") // Spinner position 4
+				time.Sleep(100 * time.Millisecond)
+			}
+		}
+	}()
+}
+
+// Stop stops the loading animation
+func (l *Loading) Stop() {
+	close(l.quit)
+	fmt.Println(" Done")
 }

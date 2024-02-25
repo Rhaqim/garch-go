@@ -7,9 +7,10 @@ import (
 )
 
 type Core struct {
-	Project *domain.ProjectConfig
-	Folders []domain.FolderStructure
-	Files   []domain.FileStructure
+	Project     *domain.ProjectConfig
+	Folders     []domain.FolderStructure
+	Files       []domain.FileStructure
+	Dependecies []string
 }
 
 func NewCore(project *domain.ProjectConfig) CoreInterface {
@@ -18,9 +19,10 @@ func NewCore(project *domain.ProjectConfig) CoreInterface {
 	architecture := arch.ArchitetureMap[config.ArchitecureType(project.Arch)]
 
 	return &Core{
-		Project: project,
-		Folders: architecture.Folders,
-		Files:   architecture.Files,
+		Project:     project,
+		Folders:     architecture.Folders,
+		Files:       architecture.Files,
+		Dependecies: domain.DepsStringMap[project.Type],
 	}
 }
 
@@ -29,10 +31,15 @@ func (c *Core) Generate() {
 	ChangeDirectory(c.Project.Title)
 
 	// git init
-	RunGitInit()
+	// RunGitInit()
 
 	// go mod init
 	RunGoInit(c.Project.Author, c.Project.Title)
+
+	// Go get dependencies
+	if len(c.Dependecies) > 0 {
+		RunGoGet(c.Dependecies...)
+	}
 
 	// Generate the folder structure
 	GenerateRecursive(c.Folders...)
