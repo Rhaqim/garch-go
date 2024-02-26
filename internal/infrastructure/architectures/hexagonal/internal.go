@@ -5,6 +5,7 @@ import "github.com/Rhaqim/garch-go/internal/app/domain"
 // Folders: adapters, core
 const ADAPTERS_FOLDER = "adapters"
 const CORE_FOLDER = "core"
+const CONFIG_FOLDER = "config"
 
 // Adapters Folder
 // Folders: cache, handler, repository, token
@@ -46,6 +47,9 @@ const SERVICE_FILE = "service.go"
 // Util Files
 const ERROR_FILE = "error.go"
 const LOGGER_FILE = "logger.go"
+
+// Config Files
+const CONFIG_FILE = "config.go"
 
 var HexInternalFolders []domain.FolderStructure = []domain.FolderStructure{
 	{
@@ -139,6 +143,15 @@ var HexInternalFolders []domain.FolderStructure = []domain.FolderStructure{
 						FileContent: `package util`,
 					},
 				},
+			},
+		},
+	},
+	{
+		FolderTitle: CONFIG_FOLDER,
+		Files: []domain.FileStructure{
+			{
+				FileName:    CONFIG_FILE,
+				FileContent: `package config`,
 			},
 		},
 	},

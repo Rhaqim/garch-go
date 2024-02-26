@@ -73,7 +73,6 @@ This will display the help message, which will show you how to use Garch.
 - `--dry-run` or `-d`: Perform a dry run, which will show the files and directories that will be generated without actually generating them.
 - `--verbose` or `-V`: Enable verbose output.
 - `--quiet` or `-q`: Suppress all output.
-- `--config` or `-g`: Generate a configuration file for the project.
 
 ### Examples
 

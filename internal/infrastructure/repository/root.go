@@ -98,3 +98,130 @@ var RootFiles = []domain.FileStructure{
 		FileContent: GITIGNORE_CONTENT,
 	},
 }
+
+// App Folder
+const APP_FOLDER = "app"
+
+// App Folders: entity, repository, service, usecase
+const ENTITY_FOLDER = "entity"
+const REPOSITORY_FOLDER = "repository"
+const SERVICE_FOLDER = "service"
+const USECASE_FOLDER = "usecase"
+
+// App Files
+// Entity Files
+const ENTITY_FILE = "entity.go"
+
+// Repository Files
+const REPOSITORY_FILE = "repository.go"
+
+// Service Files
+const SERVICE_FILE = "service.go"
+
+// Usecase Files
+const USECASE_FILE = "usecase.go"
+
+var AppFolders = []domain.FolderStructure{
+	{
+		FolderTitle: ENTITY_FOLDER,
+		Files: []domain.FileStructure{
+			{
+				FileName:    ENTITY_FILE,
+				FileContent: `package entity`,
+			},
+		},
+	},
+	{
+		FolderTitle: REPOSITORY_FOLDER,
+		Files: []domain.FileStructure{
+			{
+				FileName:    REPOSITORY_FILE,
+				FileContent: `package repository`,
+			},
+		},
+	},
+	{
+		FolderTitle: SERVICE_FOLDER,
+		Files: []domain.FileStructure{
+			{
+				FileName:    SERVICE_FILE,
+				FileContent: `package service`,
+			},
+		},
+	},
+	{
+		FolderTitle: USECASE_FOLDER,
+		Files: []domain.FileStructure{
+			{
+				FileName:    USECASE_FILE,
+				FileContent: `package usecase`,
+			},
+		},
+	},
+}
+
+// Infrastructure Folder
+const INFRASTRUCTURE_FOLDER = "infrastructure"
+
+// Infrastructure Folders: persistence, external
+const PERSISTENCE_FOLDER = "persistence"
+const EXTERNAL_FOLDER = "external"
+
+// Infrastructure Files
+// Persistence Folder
+// Folders: repository
+const PERSISTENCE_REPOSITORY_FOLDER = "repository"
+
+// Repository Files
+const PERSISTENCE_REPOSITORY_FILE = "repository.go"
+
+// External Folder
+// Folders: api, database
+const EXTERNAL_API_FOLDER = "api"
+const EXTERNAL_DATABASE_FOLDER = "database"
+
+// API Files
+const EXTERNAL_API_FILE = "api.go"
+
+// Database Files
+const EXTERNAL_DATABASE_FILE = "database.go"
+
+var InfrastructureFolders = []domain.FolderStructure{
+	{
+		FolderTitle: PERSISTENCE_FOLDER,
+		SubFolders: []domain.FolderStructure{
+			{
+				FolderTitle: PERSISTENCE_REPOSITORY_FOLDER,
+				Files: []domain.FileStructure{
+					{
+						FileName:    PERSISTENCE_REPOSITORY_FILE,
+						FileContent: `package repository`,
+					},
+				},
+			},
+		},
+	},
+	{
+		FolderTitle: EXTERNAL_FOLDER,
+		SubFolders: []domain.FolderStructure{
+			{
+				FolderTitle: EXTERNAL_API_FOLDER,
+				Files: []domain.FileStructure{
+					{
+						FileName:    EXTERNAL_API_FILE,
+						FileContent: `package api`,
+					},
+				},
+			},
+			{
+				FolderTitle: EXTERNAL_DATABASE_FOLDER,
+				Files: []domain.FileStructure{
+					{
+						FileName:    EXTERNAL_DATABASE_FILE,
+						FileContent: `package database`,
+					},
+				},
+			},
+		},
+	},
+}
