@@ -4,6 +4,7 @@ import (
 	"github.com/Rhaqim/garch-go/config"
 	"github.com/Rhaqim/garch-go/internal/app/domain"
 	arch "github.com/Rhaqim/garch-go/internal/infrastructure/architectures"
+	"github.com/Rhaqim/garch-go/internal/utils"
 )
 
 type Core struct {
@@ -17,7 +18,7 @@ type Core struct {
 func NewCore(project *domain.ProjectConfig) CoreInterface {
 
 	// Get the architecture layout
-	architecture := arch.ArchitetureMap[config.ArchitecureType(project.Arch)]
+	architecture := arch.ArchitetureMap[config.ArchitecureType(utils.NormalizeString(project.Arch))]
 
 	return &Core{
 		Project:     project,

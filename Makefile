@@ -16,7 +16,7 @@ test-build:
 	./bin/garch gen -n Pixle
 
 app-test:
-	go run cmd/gen/main.go gen -n Pixle -u meh -o temp_proj
+	go run cmd/gen/main.go gen -n Pixle -u meh
 
 app-help:
 	go run cmd/gen/main.go --help

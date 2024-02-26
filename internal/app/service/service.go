@@ -33,11 +33,11 @@ func NewProjectService(cli cli.CLIInterface) usecase.ProjectUseCase {
 func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 	var err error
 
-	// Handle the arguments
-	s.HandleArgs(config)
-
 	// Parse the project configuration
 	s.parser(config)
+
+	// Handle the arguments
+	s.HandleArgs(config)
 
 	new_core := core.NewCore(config)
 
@@ -47,10 +47,10 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 	// Print project details
 	s.cli.Display("Project generated successfully!")
 	s.cli.Display("Project Type:", config.Type)
+	s.cli.Display("Architecture:", config.Arch)
 	s.cli.Display("Title:", config.Title)
 	s.cli.Display("Author:", config.Author)
 	s.cli.Display("Database Type:", config.DbType)
-	s.cli.Display("Architecture:", config.Arch)
 
 	return err
 }
