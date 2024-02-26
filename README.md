@@ -70,7 +70,6 @@ This will display the help message, which will show you how to use Garch.
 - `--list` or `-l`: List the available architectures.
 - `--list-types` or `-lt`: List the available project types.
 - `--list-arch` or `-la`: List the available architectures.
-- `--force` or `-f`: Force the generation of the project, even if the output directory is not empty.
 - `--dry-run` or `-d`: Perform a dry run, which will show the files and directories that will be generated without actually generating them.
 - `--verbose` or `-V`: Enable verbose output.
 - `--quiet` or `-q`: Suppress all output.

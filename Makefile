@@ -7,7 +7,7 @@ help:
 	@echo "test-build - build the program and run the test"
 
 test:
-	go run cmd/gen/main.go gen -n Pixle -u meh
+	go run cmd/gen/main.go gen -n Pixle -u meh -o temp_proj
 
 app-help:
 	go run cmd/gen/main.go --help

@@ -11,6 +11,7 @@ type Core struct {
 	Folders     []domain.FolderStructure
 	Files       []domain.FileStructure
 	Dependecies []string
+	ProjectPath string
 }
 
 func NewCore(project *domain.ProjectConfig) CoreInterface {
@@ -23,10 +24,12 @@ func NewCore(project *domain.ProjectConfig) CoreInterface {
 		Folders:     architecture.Folders,
 		Files:       architecture.Files,
 		Dependecies: domain.DepsStringMap[project.Type],
+		ProjectPath: project.Output,
 	}
 }
 
 func (c *Core) Generate() {
+
 	CreateFolder(c.Project.Title)
 	ChangeDirectory(c.Project.Title)
 

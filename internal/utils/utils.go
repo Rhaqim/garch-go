@@ -3,7 +3,9 @@ package utils
 import (
 	"flag"
 	"fmt"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"time"
@@ -176,4 +178,22 @@ func GetGitUsername() string {
 		panic(err)
 	}
 	return strings.TrimSpace(string(out))
+}
+
+func OutputPathHandler(outputPath string) string {
+	// check if the output path has ./ or ../
+	if strings.HasPrefix(outputPath, "./") || strings.HasPrefix(outputPath, "../") {
+		// get the current working directory
+		cwd, err := os.Getwd()
+		if err != nil {
+			panic(err)
+		}
+		// join the current working directory with the output path
+		absPath := filepath.Join(cwd, outputPath)
+		return absPath
+	}
+
+	// if it doesn't then add ./ to the output path
+	return filepath.Join(".", outputPath)
+
 }
