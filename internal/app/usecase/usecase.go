@@ -9,6 +9,8 @@ type ProjectUseCase interface {
 	GenerateProject(config *domain.ProjectConfig) error
 	// PrintHelp prints the help message
 	Help()
+	// List lists the available project types
+	List(item ...string)
 	// HandleArgs handles the command-line arguments
 	HandleArgs(config *domain.ProjectConfig)
 }

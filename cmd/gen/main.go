@@ -29,8 +29,14 @@ func main() {
 	switch os.Args[1] {
 	case "gen":
 		project.GenerateProject(&config)
-	case "--help":
+	case "--help", "-h":
 		project.Help()
+	case "--list", "-l":
+		project.List()
+	case "--list-type", "-lt":
+		project.List("type")
+	case "--list-arch", "-la":
+		project.List("arch")
 	default:
 		project.Help()
 	}

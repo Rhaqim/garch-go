@@ -37,7 +37,7 @@ func (s *ProjectService) GenerateProject(config *domain.ProjectConfig) error {
 	s.HandleArgs(config)
 
 	// Parse the project configuration
-	s.Parser(config)
+	s.parser(config)
 
 	new_core := core.NewCore(config)
 
@@ -61,12 +61,46 @@ func (s *ProjectService) Help() {
 	s.cli.Display("Commands:")
 	s.cli.Display("  gen [options]  Generate a new project")
 	s.cli.Display("  help           Display help")
+	s.cli.Display("  list           List available project types and architectures")
+	s.cli.Display("  list-type      List available project types")
+	s.cli.Display("  list-arch      List available architectures")
 	s.cli.Display("Options:")
 	s.cli.Display("  -t, --type     Project type")
 	s.cli.Display("  -a, --arch     Project architecture")
 	s.cli.Display("  -d, --db       Database type")
 	s.cli.Display("  -h, --help     Display help")
 	os.Exit(1)
+}
+
+// List lists the available project types
+func (s *ProjectService) List(item ...string) {
+	listProjectTypes := func() {
+		s.cli.Display("Available project types:")
+		for _, t := range utils.GetFields(domain.Deps) {
+			s.cli.Display("  -", t)
+		}
+	}
+
+	listArchTypes := func() {
+		s.cli.Display("Available architecture types:")
+		for _, t := range config.ArchTypes {
+			s.cli.Display("  -", t)
+		}
+	}
+
+	if len(item) > 0 {
+		switch item[0] {
+		case "type":
+			listProjectTypes()
+		case "arch":
+			listArchTypes()
+		default:
+			s.cli.Display("Invalid list item")
+		}
+	} else {
+		listProjectTypes()
+		listArchTypes()
+	}
 }
 
 func (s *ProjectService) HandleArgs(projectConfig *domain.ProjectConfig) {
@@ -109,7 +143,7 @@ func (s *ProjectService) HandleArgs(projectConfig *domain.ProjectConfig) {
 // and returns a flagset
 // It works by using reflection to get the fields of the struct
 // and then adding the fields to the flagset
-func (s *ProjectService) Parser(config *domain.ProjectConfig) {
+func (s *ProjectService) parser(config *domain.ProjectConfig) {
 
 	t := reflect.TypeOf(config)
 
@@ -126,8 +160,8 @@ func (s *ProjectService) Parser(config *domain.ProjectConfig) {
 		long := tag.Get("long")
 		description := tag.Get("description")
 
-		s.cmd.StringVar(GetField(config, field.Name), short, "", description)
-		s.cmd.StringVar(GetField(config, field.Name), long, "", description)
+		s.cmd.StringVar(getField(config, field.Name), short, "", description)
+		s.cmd.StringVar(getField(config, field.Name), long, "", description)
 
 	}
 
@@ -137,7 +171,7 @@ func (s *ProjectService) Parser(config *domain.ProjectConfig) {
 // GetField returns the field of a struct
 // It works by using reflection to get the field of the struct
 // and then returning the field
-func GetField(config *domain.ProjectConfig, fieldName string) *string {
+func getField(config *domain.ProjectConfig, fieldName string) *string {
 	v := reflect.ValueOf(config)
 	f := reflect.Indirect(v).FieldByName(fieldName)
 	return f.Addr().Interface().(*string)

@@ -7,6 +7,7 @@ type ProjectConfig struct {
 	Title  string `short:"n" long:"name" description:"Title of the project"`
 	Author string `short:"u" long:"user" description:"Author of the project"`
 	DbType string `short:"d" long:"db" description:"Database type"`
+	Output string `short:"o" long:"output" description:"Output directory"`
 	// Add more fields for other configurations
 }
 
