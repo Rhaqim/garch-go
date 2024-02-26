@@ -1,5 +1,44 @@
 # GarchGo CLI Application
 
+This is a simple CLI application written in Go that demonstrates the use of the hexagonal architecture pattern. The application provides a command-line interface for generating a Go project with a predefined directory structure and architecture.
+
+## Getting Started
+
+To run the application, you need to have Go installed on your machine. You can download and install Go from the official website: [https://golang.org/dl/](https://golang.org/dl/).
+
+Once you have Go installed, you can clone this repository and run the application using the following commands:
+
+```bash
+git clone https://github.com/Rhaqim/garchgo.git
+cd garchgo
+```
+
+### Running the Application
+
+To run the application, use the following command:
+
+```bash
+go run cmd/gen/main.go
+
+# or
+
+go build cmd/gen/main.go
+./main
+```
+
+### Building the Application
+
+To build the application, use the following command:
+
+```bash
+go build cmd/gen/main.go
+
+# or with make
+make build
+```
+
+This will build and run the application, displaying the available commands and options. You can then use the application to generate a Go project with a predefined directory structure and architecture.
+
 ## Project Structure
 
 ```bash
@@ -30,6 +69,7 @@ GaarchGo/
 │   │       └── architecture.go   # Holds the root files and folders for the architectures
 │   │   └── repository/           # Stub repository for future use
 │   │       └── repository.go     # Interface for project repository
+│   │       └── root.go           # Contains the root files and similar folders for the architectures
 │   │
 │   └── utils/                    # Utilities package
 │       └── utils.go              # Utility functions/helpers
@@ -79,6 +119,8 @@ GaarchGo/
     - **`repository/`**: Contains the repository interface and its implementations. In this example, there is a stub repository that doesn't interact with a real database or external service.
   
       - **`repository.go`**: Contains the repository interface, which defines the methods for interacting with the project repository.
+
+      - **`root.go`**: Contains the root files and similar folders for the architectures.
   
   - **`utils/`**: Contains utility functions or helpers that are used throughout the application.
 

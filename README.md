@@ -7,6 +7,7 @@ Garch is a command-line interface (CLI) application built with Go. It is used to
 - [GarchGo CLI Application](#garchgo-cli-application)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
+  - [Features](#features)
   - [Usage](#usage)
     - [Parameters](#parameters)
     - [Examples](#examples)
@@ -47,6 +48,16 @@ make install
 ```bash
 ./garch-go --help
 ```
+
+## Features
+
+The application provides the following features:
+
+- **Generate Project**: Generates a new Go project with a predefined directory structure and architecture.
+- **List Architectures**: Lists the available architectures that can be used to generate a project.
+- **Help**: Displays help information for the available commands and options.
+- **Version**: Displays the version of the application.
+- **Exit**: Exits the application.
 
 ## Usage
 
