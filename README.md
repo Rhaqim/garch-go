@@ -381,13 +381,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgements
 
-- [Rust Language](https://www.rust-lang.org/)
 - [Go](https://golang.org/)
 - [Rust Community](https://www.rust-lang.org/community)
-<!-- - [Askama](
-- [Handlebars](
-- [Rustfmt](
-- [Rustdoc]( -->
 
 ## Contributing
 
