@@ -4,6 +4,7 @@ import (
 	"github.com/Rhaqim/garch-go/config"
 	"github.com/Rhaqim/garch-go/internal/app/domain"
 	"github.com/Rhaqim/garch-go/internal/infrastructure/architectures/clean"
+	"github.com/Rhaqim/garch-go/internal/infrastructure/architectures/ddd"
 	"github.com/Rhaqim/garch-go/internal/infrastructure/architectures/hexagonal"
 	"github.com/Rhaqim/garch-go/internal/infrastructure/architectures/onion"
 )
@@ -21,5 +22,8 @@ var ArchitetureMap = map[config.ArchitecureType]domain.ArchitectureLayout{
 		Files:   hexagonal.HexRootFiles,
 		Folders: hexagonal.HexRootFolders,
 	},
-	config.DDD: {},
+	config.DDD: {
+		Files:   ddd.DDDRootFiles,
+		Folders: ddd.DDDRootFolders,
+	},
 }

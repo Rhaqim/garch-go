@@ -18,9 +18,6 @@ const PERSISTENCE_FOLDER = "persistance"
 // Handler Files
 const DELIVERY_FILE = "delivery.go"
 
-// Presenter Files
-const PERSISTENCE_FILE = "persistence.go"
-
 var OnionInternalFolders []domain.FolderStructure = []domain.FolderStructure{
 	{
 		FolderTitle: APP_FOLDER,
@@ -28,26 +25,7 @@ var OnionInternalFolders []domain.FolderStructure = []domain.FolderStructure{
 	},
 	{
 		FolderTitle: INTERFACE_FOLDER,
-		SubFolders: []domain.FolderStructure{
-			{
-				FolderTitle: DELIVERY_FOLDER,
-				Files: []domain.FileStructure{
-					{
-						FileName:    DELIVERY_FILE,
-						FileContent: `package delivery`,
-					},
-				},
-			},
-			{
-				FolderTitle: PERSISTENCE_FOLDER,
-				Files: []domain.FileStructure{
-					{
-						FileName:    PERSISTENCE_FILE,
-						FileContent: `package persistence`,
-					},
-				},
-			},
-		},
+		SubFolders:  repo.InterfaceFolders,
 	},
 	{
 		FolderTitle: INFRASTRUCTURE_FOLDER,

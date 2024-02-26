@@ -225,3 +225,58 @@ var InfrastructureFolders = []domain.FolderStructure{
 		},
 	},
 }
+
+// Interface Folder
+const INTERFACE_FOLDER = "interface"
+
+// Interface Folders: delivery, persistence
+const DELIVERY_FOLDER = "delivery"
+
+// Delivery Files
+// Folders: handler, presenter
+const DELIVERY_HANDLER_FOLDER = "handler"
+const DELIVERY_PRESENTER_FOLDER = "presenter"
+
+// Handler Files
+const DELIVERY_HANDLER_FILE = "handler.go"
+
+// Presenter Files
+const DELIVERY_PRESENTER_FILE = "presenter.go"
+
+// Presenter Files
+const PERSISTENCE_FILE = "persistence.go"
+
+var InterfaceFolders = []domain.FolderStructure{
+	{
+		FolderTitle: DELIVERY_FOLDER,
+		SubFolders: []domain.FolderStructure{
+			{
+				FolderTitle: DELIVERY_HANDLER_FOLDER,
+				Files: []domain.FileStructure{
+					{
+						FileName:    DELIVERY_HANDLER_FILE,
+						FileContent: `package handler`,
+					},
+				},
+			},
+			{
+				FolderTitle: DELIVERY_PRESENTER_FOLDER,
+				Files: []domain.FileStructure{
+					{
+						FileName:    DELIVERY_PRESENTER_FILE,
+						FileContent: `package presenter`,
+					},
+				},
+			},
+		},
+	},
+	{
+		FolderTitle: PERSISTENCE_FOLDER,
+		Files: []domain.FileStructure{
+			{
+				FileName:    PERSISTENCE_FILE,
+				FileContent: `package persistence`,
+			},
+		},
+	},
+}
