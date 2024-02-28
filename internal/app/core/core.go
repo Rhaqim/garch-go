@@ -30,6 +30,22 @@ func NewCore(project *domain.ProjectConfig) CoreInterface {
 }
 
 func (c *Core) Generate() {
+	// Check if the project path is set
+	if c.ProjectPath != "" {
+		path := utils.OutputPathHandler(c.ProjectPath)
+
+		CreateFolder(path)
+		ChangeDirectory(path)
+
+		c._generateFolderStructure()
+
+		return
+	}
+	c._generateFolderStructure()
+
+}
+
+func (c *Core) _generateFolderStructure() {
 
 	CreateFolder(c.Project.Title)
 	ChangeDirectory(c.Project.Title)

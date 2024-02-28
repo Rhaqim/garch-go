@@ -9,8 +9,8 @@ To run the application, you need to have Go installed on your machine. You can d
 Once you have Go installed, you can clone this repository and run the application using the following commands:
 
 ```bash
-git clone https://github.com/Rhaqim/garchgo.git
-cd garchgo
+git clone https://github.com/Rhaqim/garch-go.git
+cd garch-go
 ```
 
 ### Running the Application
