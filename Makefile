@@ -1,4 +1,4 @@
-.PHONY: help install build 
+.PHONY: help install build start
 
 help:
 	@echo "test - run the program"
@@ -17,6 +17,9 @@ test-build:
 
 app-test:
 	go run cmd/gen/main.go gen -n Pixle -u meh
+
+start:
+	go run cmd/gen/main.go gen
 
 app-help:
 	go run cmd/gen/main.go --help
